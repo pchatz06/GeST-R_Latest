@@ -74,17 +74,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 
 .L2:
       
-	vsubpd %ymm10,%ymm6,%ymm12
-	add $71582785,%rsi
+	shl $31,%rdx
+	mov %rdx,112(%rsp)
 	mov 0(%rsp),%rbx
 	mov 64(%rsp),%rsi
 	mov 128(%rsp),%rbx
 	ror $31,%rax
 	add $214748355,%rbx
-	add %rdi,%rdi
-	mov 0(%rsp),%rdi
-	mov 64(%rsp),%rbx
-	mov 128(%rsp),%rax
+	vsubpd %ymm6,%ymm4,%ymm12
+	vsubpd %ymm5,%ymm14,%ymm14
 	vmaxpd %ymm2,%ymm11,%ymm11
 	sar $31,%rdx
 	vmaxpd %ymm14,%ymm4,%ymm1
@@ -102,12 +100,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 	add $858993420,%rbx
 	add %rdx,%rax
 	imul $1503238485,%rax
-	mov 0(%rsp),%rbx
-	mov 64(%rsp),%rdx
-	mov 128(%rsp),%rbx
+	add %rax,%rax
 	cmp %rsi,%rdi
 	shl $31,%rdx
-	add %rax,104(%rsp)
+	add %rbx,%rbx
 	vxorpd %ymm13,%ymm6,%ymm13
 	vxorpd %ymm0,%ymm4,%ymm9
 	mov 384(%rsp),%rsi
@@ -115,9 +111,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 	mov 512(%rsp),%rax
 	mov %rsi,72(%rsp)
 	vsubpd %ymm13,%ymm2,%ymm8
-	vaddpd %ymm2,%ymm9,%ymm13
+	mov 384(%rsp),%rbx
+	mov 448(%rsp),%rsi
+	mov 512(%rsp),%rsi
 	add $1431655700,%rbx
-	add %rbx,%rbx
+	vmulpd %ymm11,%ymm15,%ymm14
 	vaddpd %ymm1,%ymm0,%ymm10
 	ror $31,%rdx
 	add $930576205,%rdi
@@ -129,15 +127,17 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 	vmulpd %ymm11,%ymm7,%ymm4
 	mov %rdx,16(%rsp)
 	vaddpd %ymm13,%ymm10,%ymm1
-	vmaxpd %ymm2,%ymm9,%ymm15
+	add %rdi,64(%rsp)
 	add %rsi,28(%rsp)
 	vsubpd %ymm6,%ymm13,%ymm14
 	cmp %rdx,%rsi
 	mov %rsi,%rdi
 	shl $31,%rsi
 	vmaxpd %ymm3,%ymm4,%ymm14
-	vaddpd %ymm7,%ymm7,%ymm12
-	mov %rsi,%rax
+	mov 0(%rsp),%rbx
+	mov 64(%rsp),%rax
+	mov 128(%rsp),%rax
+	mov %rdi,%rbx
 
 
 

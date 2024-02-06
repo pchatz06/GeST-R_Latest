@@ -102,12 +102,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 	add $858993420,%rbx
 	add %rdx,%rax
 	imul $1503238485,%rax
-	mov 0(%rsp),%rbx
-	mov 64(%rsp),%rdx
-	mov 128(%rsp),%rbx
+	add %rax,%rax
 	cmp %rsi,%rdi
 	shl $31,%rdx
-	add %rax,104(%rsp)
+	add %rbx,%rbx
 	vxorpd %ymm13,%ymm6,%ymm13
 	vxorpd %ymm0,%ymm4,%ymm9
 	mov 384(%rsp),%rsi
@@ -120,7 +118,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 	add %rbx,%rbx
 	vaddpd %ymm1,%ymm0,%ymm10
 	ror $31,%rdx
-	add $930576205,%rdi
+	vsubpd %ymm6,%ymm13,%ymm9
 	mov %rdi,%rdi
 	vsubpd %ymm8,%ymm6,%ymm12
 	mov 192(%rsp),%rsi
@@ -137,7 +135,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 	shl $31,%rsi
 	vmaxpd %ymm3,%ymm4,%ymm14
 	vaddpd %ymm7,%ymm7,%ymm12
-	mov %rsi,%rax
+	sar $31,%rdx
 
 
 
