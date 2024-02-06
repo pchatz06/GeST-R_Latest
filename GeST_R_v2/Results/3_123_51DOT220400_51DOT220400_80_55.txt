@@ -1,0 +1,157 @@
+/*
+Copyright 2019 ARM Ltd. and University of Cyprus
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+        .file   "main.s"
+        .data
+        .align 32
+        .simdvalue:
+            .long   0xaaaaaaaa
+            .long   0x55555555
+            .long   0x33333333
+            .long   0xcccccccc
+            .long   0xaaaaaaaa
+            .long   0x55555555
+            .long   0x33333333
+            .long   0xcccccccc
+        .text
+        .globl  main
+        main:
+.LFB0:
+        .cfi_startproc
+        pushq   %rbp
+        .cfi_def_cfa_offset 8
+        .cfi_offset 5, -8
+        movl    %esp, %ebp
+        .cfi_def_cfa_register 5
+
+
+
+        #reg init
+
+
+        mov $0x55555555, %rax
+        mov $0x33333333, %rbx
+        mov $0x22222222, %rdx
+        mov $0x44444444, %rsi
+        mov $0x77777777, %rdi
+
+        fldpi
+        fldpi
+        fldpi
+        fldpi
+        fldpi
+        fldpi
+        fldpi
+        
+        vmovdqa .simdvalue(%rip), %ymm0
+        vmovdqa .simdvalue(%rip), %ymm1
+        vmovdqa .simdvalue(%rip), %ymm2
+        vmovdqa .simdvalue(%rip), %ymm3
+        vmovdqa .simdvalue(%rip), %ymm4
+        vmovdqa .simdvalue(%rip), %ymm5
+        vmovdqa .simdvalue(%rip), %ymm6
+        vmovdqa .simdvalue(%rip), %ymm7
+        vmovdqa .simdvalue(%rip), %ymm8
+        vmovdqa .simdvalue(%rip), %ymm9
+        vmovdqa .simdvalue(%rip), %ymm10
+        vmovdqa .simdvalue(%rip), %ymm11
+        vmovdqa .simdvalue(%rip), %ymm12
+        vmovdqa .simdvalue(%rip), %ymm13
+        vmovdqa .simdvalue(%rip), %ymm14
+        vmovdqa .simdvalue(%rip), %ymm15
+
+        mov $50000000, %rcx  #leave for i--
+
+        #subq    $304, %rsp
+
+.L2:
+      
+	add $1073741775,%rax
+	add %rsi,%rsi
+	mov 384(%rsp),%rbx
+	mov 448(%rsp),%rdx
+	mov 512(%rsp),%rsi
+	mov 384(%rsp),%rbx
+	mov 448(%rsp),%rbx
+	mov 512(%rsp),%rdx
+	vsubpd %ymm5,%ymm7,%ymm15
+	mov 0(%rsp),%rdx
+	mov 64(%rsp),%rax
+	mov 128(%rsp),%rdi
+	add $787410635,%rdx
+	mov 192(%rsp),%rdi
+	mov 256(%rsp),%rdi
+	mov 320(%rsp),%rbx
+	mov %rbx,%rdx
+	vmaxpd %ymm6,%ymm4,%ymm6
+	shl $31,%rax
+	mov %rax,8(%rsp)
+	mov %rdx,%rax
+	shl $31,%rbx
+	mov %rdi,%rsi
+	add $71582785,%rdi
+	mov 0(%rsp),%rdx
+	mov 64(%rsp),%rbx
+	mov 128(%rsp),%rsi
+	vmaxpd %ymm6,%ymm2,%ymm8
+	add %rax,104(%rsp)
+	vxorpd %ymm8,%ymm9,%ymm7
+	vmaxpd %ymm8,%ymm10,%ymm15
+	ror $31,%rsi
+	add $71582785,%rdi
+	vmulpd %ymm6,%ymm4,%ymm9
+	vxorpd %ymm5,%ymm15,%ymm4
+	add $1717986840,%rdi
+	mov 384(%rsp),%rbx
+	mov 448(%rsp),%rsi
+	mov 512(%rsp),%rsi
+	vxorpd %ymm9,%ymm11,%ymm9
+	mov %rbx,%rbx
+	ror $31,%rbx
+	mov %rsi,%rsi
+	shl $31,%rdi
+	mov %rbx,44(%rsp)
+	vxorpd %ymm13,%ymm1,%ymm2
+	cmp %rax,%rdx
+	add %rsi,%rdi
+	mov 384(%rsp),%rdi
+	mov 448(%rsp),%rbx
+	mov 512(%rsp),%rax
+	vsubpd %ymm13,%ymm14,%ymm13
+	vxorpd %ymm8,%ymm10,%ymm4
+	vsubpd %ymm8,%ymm0,%ymm13
+	mov 192(%rsp),%rdx
+	mov 256(%rsp),%rax
+	mov 320(%rsp),%rdx
+	vsubpd %ymm1,%ymm6,%ymm9
+	cmp %rdx,%rdi
+	vmaxpd %ymm2,%ymm11,%ymm7
+	sar $31,%rax
+	mov %rbx,64(%rsp)
+	mov %rdi,28(%rsp)
+	vxorpd %ymm4,%ymm15,%ymm15
+	vmaxpd %ymm6,%ymm6,%ymm9
+	imul %rdx,%rax
+
+
+
+        #sub $1,%rcx #remove this and below comment for fixed iterations
+        #cmp $0, %rcx
+        jmp     .L2
+
+         leave
+        .cfi_restore 5
+        .cfi_def_cfa 4, 4
+       ret
+
+        .cfi_endproc
+.LFE0:
+        .ident  "GCC: (GNU) 6.4.0"
